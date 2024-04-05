@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Layout, Drawer, Button, Input, Cascader, Menu, Row, Col } from "antd";
+import {
+  Layout,
+  Drawer,
+  Button,
+  Input,
+  Cascader,
+  Menu,
+  Row,
+  Col,
+  Flex,
+} from "antd";
+import { FaArrowRight } from "react-icons/fa6";
+
 import {
   CiSearch,
   CiHeart,
   CiShoppingCart,
   CiMenuBurger,
+  CiPhone,
+  CiMail,
+  CiLocationOn,
 } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
-
-import Logo from "../../assets/images/Logo.svg";
-const { Header, Content } = Layout;
+import FooterLogo from "@/assets/images/FooterLogo.svg";
+import Logo from "@/assets/images/Logo.svg";
+import Typography from "antd/es/typography/Typography";
+const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const PublicLayout = () => {
@@ -52,7 +68,12 @@ const PublicLayout = () => {
       <Header className=" bg-white pt-5 h-auto">
         <Row justify="space-around" align="cenetr">
           <Col span={6}>
-            <Image priority={true} alt="logo" src={Logo} />
+            <Image
+              className="color-primary"
+              priority={true}
+              alt="logo"
+              src={Logo}
+            />
           </Col>
           <Col span={8}>
             <Search
@@ -92,7 +113,7 @@ const PublicLayout = () => {
           </Col>
           <Col span={8}>
             <Menu
-              onClick={() => setCurrentPage(e.key)}
+              onClick={(e) => setCurrentPage(e.key)}
               selectedKeys={[currentPage]}
               mode="horizontal"
               items={menuItems}
@@ -101,11 +122,59 @@ const PublicLayout = () => {
           </Col>
         </Row>
       </Header>
-
       <Content>
-        {/* Content goes here */}
         <p>This is the main content area.</p>
       </Content>
+      <Footer justify="space-around" className=" bg-primary">
+        <Row gutter={[16, 40]}>
+          <Col className="py-2 gutter-row space-y-5" span={6}>
+            <Image src={FooterLogo} alt="logo" />
+            <Flex className="flex flex-row justify-start items-center gap-2">
+              <CiPhone size={20} color="white" />
+              <Typography className="text-white">(316) 555-0116</Typography>
+            </Flex>
+            <Flex className="flex flex-row justify-start items-center gap-2">
+              <CiMail size={20} color="white" />
+              <Typography className="text-white">
+                electro@example.com
+              </Typography>
+            </Flex>
+            <Flex className="flex flex-row justify-start items-start gap-2">
+              <CiLocationOn size={25} color="white" />
+              <Typography className="text-white ">
+                4140 Parker Rd. Allentown, New Mexico 31134
+              </Typography>
+            </Flex>
+          </Col>
+          <Col className="py-2 pl-10 gutter-row space-y-5" span={6}>
+            <Typography className="font-bold text-white">
+              Information
+            </Typography>
+            <Typography className="text-white">My Account</Typography>
+            <Typography className="text-white">Login</Typography>
+            <Typography className="text-white">My Cart</Typography>
+            <Typography className="text-white">My Wishlist</Typography>
+            <Typography className="text-white">Checkout</Typography>
+          </Col>
+          <Col className="py-2 gutter-row space-y-5" span={6}>
+            <Typography className="font-bold text-white">
+              Service
+            </Typography>
+            <Typography className="text-white">About Us</Typography>
+            <Typography className="text-white">Careers</Typography>
+            <Typography className="text-white">Delivery Information</Typography>
+            <Typography className="text-white">Privacy Policy</Typography>
+            <Typography className="text-white">Terms & Conditions</Typography>
+          </Col>
+          <Col className="py-2 gutter-row space-y-5" span={6}>
+            <Typography className="font-bold text-white">
+              Subscribe
+            </Typography>
+            <Typography className="text-white">Enter your email below to be the first to know about new collections.</Typography>
+            <Input variant="filled"  placeholder="Your e-mail" className="text-white bg-grey" prefix={<CiMail color="white" size={20}/>} suffix={<FaArrowRight  />} />
+          </Col>
+        </Row>
+      </Footer>
       <Drawer
         title="Basic Drawer"
         placement="right"
