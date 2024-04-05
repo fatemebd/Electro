@@ -12,8 +12,10 @@ import {
   Col,
   Flex,
 } from "antd";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaTwitter, FaFacebookF } from "react-icons/fa6";
+import { RiInstagramFill } from "react-icons/ri";
 
+import companies from "@/assets/images/companies.png";
 import {
   CiSearch,
   CiHeart,
@@ -27,6 +29,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import FooterLogo from "@/assets/images/FooterLogo.svg";
 import Logo from "@/assets/images/Logo.svg";
 import Typography from "antd/es/typography/Typography";
+import { InstagramFilled } from "@ant-design/icons";
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
@@ -125,10 +128,11 @@ const PublicLayout = () => {
       <Content>
         <p>This is the main content area.</p>
       </Content>
-      <Footer justify="space-around" className=" bg-primary">
-        <Row gutter={[16, 40]}>
+      <Footer justify="space-around" className="space-y-5 bg-primary">
+        <Row gutter={[40, 16]}>
           <Col className="py-2 gutter-row space-y-5" span={6}>
-            <Image src={FooterLogo} alt="logo" />
+            <Image               priority={true}
+ src={FooterLogo} alt="logo" />
             <Flex className="flex flex-row justify-start items-center gap-2">
               <CiPhone size={20} color="white" />
               <Typography className="text-white">(316) 555-0116</Typography>
@@ -146,7 +150,7 @@ const PublicLayout = () => {
               </Typography>
             </Flex>
           </Col>
-          <Col className="py-2 pl-10 gutter-row space-y-5" span={6}>
+          <Col className="py-2 pl-10 gutter-row space-y-3" span={6}>
             <Typography className="font-bold text-white">
               Information
             </Typography>
@@ -156,22 +160,44 @@ const PublicLayout = () => {
             <Typography className="text-white">My Wishlist</Typography>
             <Typography className="text-white">Checkout</Typography>
           </Col>
-          <Col className="py-2 gutter-row space-y-5" span={6}>
-            <Typography className="font-bold text-white">
-              Service
-            </Typography>
+          <Col className="py-2 gutter-row space-y-3" span={6}>
+            <Typography className="font-bold text-white">Service</Typography>
             <Typography className="text-white">About Us</Typography>
             <Typography className="text-white">Careers</Typography>
             <Typography className="text-white">Delivery Information</Typography>
             <Typography className="text-white">Privacy Policy</Typography>
             <Typography className="text-white">Terms & Conditions</Typography>
           </Col>
-          <Col className="py-2 gutter-row space-y-5" span={6}>
-            <Typography className="font-bold text-white">
-              Subscribe
+          <Col className="py-2 gutter-row space-y-3" span={6}>
+            <Typography className="font-bold text-white">Subscribe</Typography>
+            <Typography className="text-white">
+              Enter your email below to be the first to know about new
+              collections.
             </Typography>
-            <Typography className="text-white">Enter your email below to be the first to know about new collections.</Typography>
-            <Input variant="filled"  placeholder="Your e-mail" className="text-white bg-grey" prefix={<CiMail color="white" size={20}/>} suffix={<FaArrowRight  />} />
+            <Input
+              variant="filled"
+              size="large"
+              placeholder="Your e-mail"
+              className="text-white bg-grey"
+              prefix={<CiMail size={20} />}
+              suffix={<FaArrowRight />}
+            />
+            <style>{`::placeholder {  color: white !important; }`}</style>
+          </Col>
+        </Row>
+        <Row justify="space-between">
+          <Col span={8}>
+            <Image priority={true} src={companies} alt="companies" />
+          </Col>
+          <Col span={8}>
+            <Typography className="text-white">
+              ©2023 Electro All Rights are reserved️
+            </Typography>
+          </Col>
+          <Col className="flex items-center gap-3 text-white" span={4}>
+            <FaFacebookF />
+            <InstagramFilled />
+            <FaTwitter />
           </Col>
         </Row>
       </Footer>
