@@ -1,7 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/src/assets/fonts/Montserrat.ttf') format('ttf');
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -30,4 +33,13 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+.ant-select-selection-placeholder{
+  color : black !important;
+}
+.ant-select-arrow{
+  color: black !important;
+}
+.ant-select-selector {
+  background-color: inherit !important;
 }
