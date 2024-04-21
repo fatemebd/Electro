@@ -9,8 +9,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: {
+          1000: "rgba(28, 78, 142, 1)",
+          500: "rgba(28, 78, 142, 0.1)",
+        },
         grey: "rgba(165, 169, 172, 0.05)",
-        primary:"rgba(28, 78, 142, 1)"
+        gray: {
+          100: "rgba(165, 169, 172, 0.1)",
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
