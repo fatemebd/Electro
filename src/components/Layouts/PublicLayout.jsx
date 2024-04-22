@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,6 +14,7 @@ import {
 } from "antd";
 import { FaArrowRight, FaTwitter, FaFacebookF } from "react-icons/fa6";
 import { RiInstagramFill } from "react-icons/ri";
+import { usePathname } from "next/navigation";
 
 import companies from "@/assets/images/companies.png";
 import {
@@ -33,10 +34,13 @@ import { InstagramFilled } from "@ant-design/icons";
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
-const PublicLayout = () => {
+const PublicLayout = (props) => {
   const [visible, setVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState("mail");
-
+  const url = usePathname();
+  useEffect(() => {
+    console.log(url);
+  }, []);
   const menuItems = [
     {
       label: <Link href="/">Home</Link>,
@@ -67,12 +71,19 @@ const PublicLayout = () => {
   ];
 
   return (
-    <Layout className="bg-white h-screen">
-      <Header className=" bg-white pt-5 h-auto">
+    <Layout className="bg-white h-full">
+      <Layout>
+
+      <Header
+      sticky
+        className={` ${
+          url === "/" || url === "/home-page" ? "bg-grey" : "bg-white"
+        } pt-5 h-auto`}
+      >
         <Row justify="space-around" align="cenetr">
           <Col span={6}>
             <Image
-              className="color-primary"
+              className="color-primary-1000"
               priority={true}
               alt="logo"
               src={Logo}
@@ -121,18 +132,16 @@ const PublicLayout = () => {
               mode="horizontal"
               items={menuItems}
               itemProp=""
+              className={`bg-transparent`}
             />
           </Col>
         </Row>
       </Header>
-      <Content>
-        <p>This is the main content area.</p>
-      </Content>
-      <Footer justify="space-around" className="space-y-5 bg-primary">
+      <Content>{props.children} </Content>
+      <Footer fixedPosition  justify="space-around" className="space-y-5 bg-primary-1000  ">
         <Row gutter={[40, 16]}>
           <Col className="py-2 gutter-row space-y-5" span={6}>
-            <Image               priority={true}
- src={FooterLogo} alt="logo" />
+            <Image priority={true} src={FooterLogo} alt="logo" />
             <Flex className="flex flex-row justify-start items-center gap-2">
               <CiPhone size={20} color="white" />
               <Typography className="text-white">(316) 555-0116</Typography>
@@ -201,6 +210,7 @@ const PublicLayout = () => {
           </Col>
         </Row>
       </Footer>
+      </Layout>
       <Drawer
         title="Basic Drawer"
         placement="right"

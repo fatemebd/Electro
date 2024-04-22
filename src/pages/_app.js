@@ -1,6 +1,7 @@
 
 import "@/styles/globals.css";
 import { Montserrat } from "next/font/google";
+import PublicLayout from "@/components/Layouts/PublicLayout";
 
 import { ConfigProvider } from "antd";
 export default function App({ Component, pageProps }) {
@@ -17,7 +18,10 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
+      <PublicLayout>
+
       <Component {...pageProps} />
+      </PublicLayout>
    </ConfigProvider>
   );
 }
