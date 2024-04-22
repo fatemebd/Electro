@@ -1,9 +1,48 @@
-import { Button, Col, Flex, Row, Typography, Tag } from "antd";
+import { Button, Col, Flex, Row, Typography, Tag, Modal } from "antd";
 import Image from "next/image";
 import Hero from "@/assets/images/hero.svg";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  TruckOutlined,
+  DollarOutlined,
+  CreditCardOutlined,
+} from "@ant-design/icons";
+import { BiSupport } from "react-icons/bi";
+import Login from "@/components/Forms/Login";
 import Mac from "@/assets/images/Macbook.png";
+import Tablet from "@/assets/images/Tablet.png";
+import Ipad from "@/assets/images/Ipad.png";
+import Camera from "@/assets/images/Camera.png";
+import Iphone from "@/assets/images/Iphone.png";
+
+import Slider from "@/components/Display/Slider";
+import TopGrid from "@/components/Display/TopGrid";
+import { useState } from "react";
+// import banner from "@/assets/images/banner.png";
 const HomePage = () => {
+  const [loginOpen, setLoginOpen] = useState(false);
+  const ourOptions = [
+    {
+      label: "Free Shipping",
+      description: "Free shipping for order above $150",
+      icon: <TruckOutlined className="text-2xl" />,
+    },
+    {
+      label: "Money Guarantee",
+      description: "Within 30 days for an exchange",
+      icon: <DollarOutlined className="text-2xl" />,
+    },
+    {
+      label: "Online Support",
+      description: "24 hours a day, 7 days a week",
+      icon: <BiSupport className="text-2xl" />,
+    },
+    {
+      label: "Flexible Payment",
+      description: "Pay with multiple credit cards",
+      icon: <CreditCardOutlined className="text-2xl" />,
+    },
+  ];
   return (
     <>
       <Row justify="start">
@@ -88,6 +127,144 @@ const HomePage = () => {
             </Col>
           </Row>
         </Col>
+      </Row>
+      <TopGrid
+        title="Our Bestseller Products"
+        gridItems={[
+          //will be updated with back-end data
+          {
+            img: Ipad,
+            label: "Apple iPad Pro Wi-Fi",
+            rate: 3,
+            price: "$1520",
+          },
+          {
+            img: Tablet,
+            label: "Apple iPad Mini 6 Wi-Fi",
+            rate: 3,
+            price: "$500.00",
+          },
+          {
+            img: Tablet,
+            label: "Microsoft Surface Go",
+            rate: 5,
+            price: "$399.00",
+          },
+          {
+            img: Tablet,
+            label: "LG 4K Ultra UHD TV",
+            rate: 5,
+            price: "$5500.00",
+          },
+          {
+            img: Tablet,
+            label: "Samsung Galaxy S22 Ultra",
+            rate: 5,
+            price: "$1350.00",
+          },
+          {
+            img: Tablet,
+            label: "Apple iPhone 14 Plus",
+            rate: 5,
+            price: "$850.00",
+          },
+          {
+            img: Tablet,
+            label: "Bose QuietComfort 45",
+            rate: 5,
+            price: "$300.00",
+          },
+        ]}
+        className="px-10"
+      />
+      <Row
+        className={`bg-[url("../../public/banner.png")] md:h-[500px] xs:h-[50px]`}
+      >
+        <Flex vertical className=" m-20  space-y-5">
+          <Typography className="font-extrabold text-4xl text-white ">
+            Apple iPhone 13 Pro Max
+          </Typography>
+          <Typography className="text-lg font-thin text-white">
+            Don’t miss the last opportunity{" "}
+          </Typography>
+          <Button
+            type="primary"
+            className="w-[150px] rtl"
+            style={{ direction: "rtl" }}
+            icon={<ArrowRightOutlined />}
+          >
+            Shop Now
+          </Button>
+        </Flex>
+      </Row>
+      <TopGrid
+        title="Top Selling Products"
+        gridItems={[
+          //will be updated with back-end data
+          {
+            img: Iphone,
+            label: "Apple iPad Pro Wi-Fi",
+            rate: 3,
+            price: "$1520",
+          },
+          {
+            img: Camera,
+            label: "Apple iPad Mini 6 Wi-Fi",
+            rate: 3,
+            price: "$500.00",
+          },
+          {
+            img: Camera,
+            label: "Microsoft Surface Go",
+            rate: 5,
+            price: "$399.00",
+          },
+          {
+            img: Camera,
+            label: "LG 4K Ultra UHD TV",
+            rate: 5,
+            price: "$5500.00",
+          },
+          {
+            img: Camera,
+            label: "Samsung Galaxy S22 Ultra",
+            rate: 5,
+            price: "$1350.00",
+          },
+          {
+            img: Camera,
+            label: "Apple iPhone 14 Plus",
+            rate: 5,
+            price: "$850.00",
+          },
+          {
+            img: Camera,
+            label: "Bose QuietComfort 45",
+            rate: 5,
+            price: "$300.00",
+          },
+        ]}
+        className="px-10"
+      />
+      <Row justify="center" className="px-16">
+        {ourOptions.map((option, index) => {
+          return (
+            <Col
+              key={index}
+              xs={12}
+              md={6}
+              className=" flex flex-col justify-start"
+            >
+              {option.icon}
+              <Typography className="text-lg font-extrabold">
+                {option.label}
+              </Typography>
+              <Typography className="text-base ">
+                {option.description}
+              </Typography>
+            </Col>
+          );
+        })}
       </Row>
     </>
   );
