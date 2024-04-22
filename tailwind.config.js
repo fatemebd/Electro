@@ -16,6 +16,7 @@ module.exports = {
         grey: "rgba(165, 169, 172, 0.05)",
         gray: {
           100: "rgba(165, 169, 172, 0.1)",
+          1000: " rgba(165, 169, 172, 1)",
         },
       },
       backgroundImage: {
