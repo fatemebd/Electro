@@ -10,7 +10,10 @@ module.exports = {
     extend: {
       colors: {
         grey: "rgba(165, 169, 172, 0.05)",
-        primary:"rgba(28, 78, 142, 1)"
+        gray: {
+          100: "rgba(165, 169, 172, 0.1)",
+          1000: " rgba(165, 169, 172, 1)",
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
