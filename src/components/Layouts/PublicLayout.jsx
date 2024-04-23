@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { SiderContext } from "antd/es/layout/Sider";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,18 +14,19 @@ import {
   Flex,
   Modal,
   Badge,
+  Grid,
+  Divider,
 } from "antd";
 import { FaArrowRight, FaTwitter, FaFacebookF } from "react-icons/fa6";
 import Login from "../Forms/Login";
 import { usePathname } from "next/navigation";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import companies from "@/assets/images/companies.png";
 import {
   CiSearch,
   CiHeart,
   CiShoppingCart,
-  CiMenuBurger,
   CiPhone,
   CiMail,
   CiLocationOn,
@@ -40,19 +42,28 @@ const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const PublicLayout = ({ children }) => {
+  const { sidebarItems, setSidebarItems } = useContext(SiderContext);
   const [visible, setVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState("mail");
   const [popup, setPopUp] = useState(null);
+
+  useEffect(() => {
+    console.log(sidebarItems);
+    setSidebarItems(cartItems);
+  }, []);
+
   const cartItems = [
     {
+      id: 0,
       title: "Apple iPhone 14 Pro",
-      price: "$1999.00",
+      price: 1999.0,
       quantity: 1,
       img: CartItem,
     },
     {
+      id: 1,
       title: "Asus ROG Delta S",
-      price: "$250.00",
+      price: 250.0,
       quantity: 1,
       img: CartItem,
     },
@@ -134,8 +145,11 @@ const PublicLayout = ({ children }) => {
                   onClick={() => setVisible(true)}
                   className="border-none rounded-2xl"
                   icon={
-                    <Badge color="rgba(28, 78, 142, 1)
-                    " count={3}>
+                    <Badge
+                      color="rgba(28, 78, 142, 1)
+                    "
+                      count={3}
+                    >
                       <CiShoppingCart size={24} />
                     </Badge>
                   }
@@ -275,13 +289,85 @@ const PublicLayout = ({ children }) => {
           </Footer>
         </Layout>
         <Drawer
-          className="text-black"
-          title="Basic Drawer"
+          className="text-black  "
+          title={`You have ${sidebarItems.length} items in your cart`}
           placement="right"
           closable={false}
           onClose={() => setVisible(false)}
           open={visible}
-        ></Drawer>
+        >
+          <Flex
+            vertical
+            className={`space-y-5 ${
+              sidebarItems.length ? "justify-between" : "justify-end"
+            } h-full`}
+          >
+            <Flex vertical>
+              {sidebarItems.map((item) => {
+                return (
+                  <>
+                    <Row key={item.id} justify="space-around">
+                      <Col span={6}>
+                        <Flex
+                          className="p-5 rounded-sm bg-grey"
+                          justify="center"
+                          align="center"
+                        >
+                          <Image src={item.img} alt={item.title} />
+                        </Flex>
+                      </Col>
+                      <Col span={12} className="">
+                        <Typography>{item.title}</Typography>
+                        <Typography className=" font-extrabold	">
+                          ${item.price}
+                        </Typography>
+                        <Typography>QTY: {item.quantity}</Typography>
+                      </Col>
+                      <Col span={1} className="flex justify-start  pt-10">
+                        <Button
+                          className="border-none rounded-2xl"
+                          onClick={() =>
+                            setSidebarItems(
+                              sidebarItems.filter(
+                                (element) => element.id !== item.id
+                              )
+                            )
+                          }
+                          icon={
+                            <DeleteOutlined className="text-red-500 text-lg align-end" />
+                          }
+                        ></Button>
+                      </Col>
+                    </Row>
+                    <Divider />
+                  </>
+                );
+              })}
+            </Flex>
+            <Flex vertical className="space-y-5">
+              <Flex justify="space-between" className="w-full">
+                <Typography className="font-black	text-base	 ">
+                  Sub Total
+                </Typography>
+                <Typography className="font-black text-base	">
+                  $
+                  {(() => {
+                    let sum = 0;
+                    sidebarItems.map((item) => {
+                      sum += item.price;
+                    });
+                    return sum;
+                  })()}
+                </Typography>
+              </Flex>
+              <Button className="w-full h-12">View Cart</Button>
+
+              <Button className="w-full h-12" type="primary">
+                Checkout
+              </Button>
+            </Flex>
+          </Flex>
+        </Drawer>
       </Layout>
     </>
   );
