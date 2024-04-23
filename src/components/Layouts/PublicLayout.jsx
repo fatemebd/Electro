@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SiderContext } from "antd/es/layout/Sider";
+import { useCart } from "@/Contexts/CartContext";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -42,17 +43,30 @@ const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const PublicLayout = ({ children }) => {
-  const { sidebarItems, setSidebarItems } = useContext(SiderContext);
+  const { cartItems, addToCart, removeFromCart } = useCart();
   const [visible, setVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState("mail");
   const [popup, setPopUp] = useState(null);
 
   useEffect(() => {
-    console.log(sidebarItems);
-    setSidebarItems(cartItems);
+    console.log(cartItems);
+    addToCart({
+      id: 0,
+      title: "Apple iPhone 14 Pro",
+      price: 1999.0,
+      quantity: 1,
+      img: CartItem,
+    });
+    addToCart({
+      id: 1,
+      title: "Asus ROG Delta S",
+      price: 250.0,
+      quantity: 1,
+      img: CartItem,
+    });
   }, []);
 
-  const cartItems = [
+  const cartItemes = [
     {
       id: 0,
       title: "Apple iPhone 14 Pro",
@@ -148,7 +162,7 @@ const PublicLayout = ({ children }) => {
                     <Badge
                       color="rgba(28, 78, 142, 1)
                     "
-                      count={3}
+                      count={cartItems.length}
                     >
                       <CiShoppingCart size={24} />
                     </Badge>
@@ -290,7 +304,7 @@ const PublicLayout = ({ children }) => {
         </Layout>
         <Drawer
           className="text-black  "
-          title={`You have ${sidebarItems.length} items in your cart`}
+          title={`You have ${cartItems.length} items in your cart`}
           placement="right"
           closable={false}
           onClose={() => setVisible(false)}
@@ -299,14 +313,14 @@ const PublicLayout = ({ children }) => {
           <Flex
             vertical
             className={`space-y-5 ${
-              sidebarItems.length ? "justify-between" : "justify-end"
+              cartItems.length ? "justify-between" : "justify-end"
             } h-full`}
           >
             <Flex vertical>
-              {sidebarItems.map((item) => {
+              {cartItems.map((item) => {
                 return (
-                  <>
-                    <Row key={item.id} justify="space-around">
+                  <Flex key={item.id} vertical>
+                    <Row justify="space-around">
                       <Col span={6}>
                         <Flex
                           className="p-5 rounded-sm bg-grey"
@@ -327,10 +341,8 @@ const PublicLayout = ({ children }) => {
                         <Button
                           className="border-none rounded-2xl"
                           onClick={() =>
-                            setSidebarItems(
-                              sidebarItems.filter(
-                                (element) => element.id !== item.id
-                              )
+                            removeFromCart(
+                              item.id
                             )
                           }
                           icon={
@@ -340,7 +352,7 @@ const PublicLayout = ({ children }) => {
                       </Col>
                     </Row>
                     <Divider />
-                  </>
+                  </Flex>
                 );
               })}
             </Flex>
@@ -353,7 +365,7 @@ const PublicLayout = ({ children }) => {
                   $
                   {(() => {
                     let sum = 0;
-                    sidebarItems.map((item) => {
+                    cartItems.map((item) => {
                       sum += item.price;
                     });
                     return sum;
