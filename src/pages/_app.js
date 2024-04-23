@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { Montserrat } from "next/font/google";
 import PublicLayout from "@/components/Layouts/PublicLayout";
-import { SiderContext } from "antd/es/layout/Sider";
+import { CartProvider } from '@/Contexts/CartContext';
 import { ConfigProvider } from "antd";
 import { useState } from "react";
 export default function App({ Component, pageProps }) {
@@ -20,11 +20,11 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-      <SiderContext.Provider value={{sidebarItems, setSidebarItems}}>
+    <CartProvider>
         <PublicLayout>
           <Component {...pageProps} />
         </PublicLayout>
-      </SiderContext.Provider>
+      </CartProvider >
     </ConfigProvider>
   );
 }
