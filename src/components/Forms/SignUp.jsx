@@ -1,21 +1,23 @@
+import { useState } from "react";
+
 import {
   Form,
   Input,
   Checkbox,
-  Col,
+  Modal,
   Row,
   Button,
   Divider,
   Typography,
-  Modal,
   Flex,
 } from "antd";
-import Icon, { CloseOutlined, AppleFilled } from "@ant-design/icons";
+import Icon, {
+  HomeOutlined,
+  AppleFilled,
+  CloseOutlined,
+} from "@ant-design/icons";
 
 import Link from "next/link";
-import ChangePass from "@/assets/images/ChangePass.svg";
-import { useState } from "react";
-import Image from "next/image";
 const GoogleIcon = () => (
   <svg
     width="21"
@@ -50,16 +52,36 @@ const GoogleIcon = () => (
     />
   </svg>
 );
-const Login = ({ setPopUp }) => {
-  const [changePassOpen, setChangePassOpen] = useState(false);
+const SignUp = ({ setPopUp }) => {
+  const [otpOpen, setOtpOpen] = useState(false);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setPopUp(null);
+    setOtpOpen(true);
+  };
+
   return (
-    <Form title="Welcome 👋 " layout="vertical">
+    <Form title="New Account" layout="vertical">
       <Flex vertical className="space-y-1 mb-3 ">
-        <Typography className="text-3xl font-extrabold	">Welcome 👋 </Typography>
+        <Typography className="text-3xl font-extrabold	">
+          Create New Account
+        </Typography>
         <Typography className="text-gray-1000 text-base	">
-          Please login here
+          Please enter details{" "}
         </Typography>
       </Flex>
+      <Form.Item
+        label="Name"
+        name="name"
+        rules={[
+          {
+            required: false,
+            message: "Please input your name!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item
         label="Email Address"
         name="email"
@@ -91,60 +113,71 @@ const Login = ({ setPopUp }) => {
           span: 24,
         }}
       >
-        <Row className="w-full" justify="space-between">
-          <Col span={9}>
-            <Checkbox>Remember me</Checkbox>
-          </Col>
-          <Col span={8}>
-            <Typography className="cursor-pointer" onClick={() => {setChangePassOpen(true); setPopUp(false)}}>
-
-              Forgot Password?
-            </Typography>
-            <Modal
-              open={changePassOpen}
-              onCancel={() => setChangePassOpen(false)}
-              closable={false}
-              className="w-[30%]"
-              footer=""
-            >
-              <Button
-                onClick={() => setChangePassOpen(false)}
-                icon={<CloseOutlined />}
-                className="absolute top-[-40px] right-0"
-              />
-
-              <Flex vertical className="space-y-3 mb-3 justify-center items-center text-center">
-                <Image src={ChangePass} />
-                <Typography className="text-3xl font-extrabold	">
-                  Password Changed Successfully{" "}
-                </Typography>
-                <Typography className="text-gray-1000 text-base	">
-                  Your password has been updated successfully
-                </Typography>
-                <Button type="primary" className="w-full h-12" onClick={() => {setChangePassOpen(false); setPopUp("login")}}>Back to Login</Button>
-              </Flex>
-            </Modal>
-          </Col>
-        </Row>
+        <Checkbox>I agree to the Terms & Conditions</Checkbox>
       </Form.Item>
       <Form.Item
         wrapperCol={{
           span: 24,
         }}
       >
-        <Button type="primary" htmlType="submit" className="w-full">
-          Login
-        </Button>
-      </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          span: 24,
-        }}
-      >
-        <Button className="w-full" onClick={() => setPopUp("signUp")}>
+        <Button
+          onClick={submitHandler}
+          type="primary"
+          htmlType="submit"
+          className="w-full"
+        >
           Register
         </Button>
       </Form.Item>
+
+      <Modal
+        open={otpOpen}
+        onCancel={() => setOtpOpen(false)}
+        closable={false}
+        className="w-[30%]"
+        footer=""
+      >
+        <Button
+          onClick={() => setPopUp(null)}
+          icon={<CloseOutlined />}
+          className="absolute top-[-40px] right-0"
+        />
+        <Form title="OTP" layout="vertical">
+          <Form.Item
+            wrapperCol={{
+              span: 24,
+            }}
+          >
+            <Flex vertical className="space-y-4 ">
+              <Typography className="text-3xl font-extrabold	">
+                Enter OTP{" "}
+              </Typography>
+              <Typography className="text-gray-1000 text-base	">
+                We have share a code of your registered email address
+                kristin.watson@example.com{" "}
+              </Typography>
+            <Input.OTP
+              length={5}
+              className="px-5"
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+            ></Input.OTP>
+            <Button
+              type="primary"
+              className="w-full h-12"
+              onClick={() => {
+              setOtpOpen(false)
+              }}
+            >
+              Send OTP{" "}
+            </Button>
+            </Flex>
+          </Form.Item>
+        </Form>
+      </Modal>
       <Divider>
         <Typography className="text-xs	">Or Login With</Typography>
       </Divider>
@@ -171,4 +204,4 @@ const Login = ({ setPopUp }) => {
   );
 };
 
-export default Login;
+export default SignUp;
