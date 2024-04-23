@@ -7,12 +7,15 @@ import {
   Button,
   Divider,
   Typography,
+  Modal,
   Flex,
 } from "antd";
-import Icon, { HomeOutlined, AppleFilled } from "@ant-design/icons";
+import Icon, { CloseOutlined, AppleFilled } from "@ant-design/icons";
 
 import Link from "next/link";
-import Google from "@/assets/images/google.svg";
+import ChangePass from "@/assets/images/ChangePass.svg";
+import { useState } from "react";
+import Image from "next/image";
 const GoogleIcon = () => (
   <svg
     width="21"
@@ -47,7 +50,8 @@ const GoogleIcon = () => (
     />
   </svg>
 );
-const Login = () => {
+const Login = ({ setPopUp }) => {
+  const [changePassOpen, setChangePassOpen] = useState(false);
   return (
     <Form title="Welcome 👋 " layout="vertical">
       <Flex vertical className="space-y-1 mb-3 ">
@@ -92,9 +96,34 @@ const Login = () => {
             <Checkbox>Remember me</Checkbox>
           </Col>
           <Col span={8}>
-            <Link className=" text-right" href="/forget-password">
+            <Typography className="cursor-pointer" onClick={() => {setChangePassOpen(true); setPopUp(false)}}>
+
               Forgot Password?
-            </Link>
+            </Typography>
+            <Modal
+              open={changePassOpen}
+              onCancel={() => setChangePassOpen(false)}
+              closable={false}
+              className="w-[30%]"
+              footer=""
+            >
+              <Button
+                onClick={() => setChangePassOpen(false)}
+                icon={<CloseOutlined />}
+                className="absolute top-[-40px] right-0"
+              />
+
+              <Flex vertical className="space-y-3 mb-3 justify-center items-center text-center">
+                <Image src={ChangePass} />
+                <Typography className="text-3xl font-extrabold	">
+                  Password Changed Successfully{" "}
+                </Typography>
+                <Typography className="text-gray-1000 text-base	">
+                  Your password has been updated successfully
+                </Typography>
+                <Button type="primary" className="w-full h-12" onClick={() => {setChangePassOpen(false); setPopUp("login")}}>Back to Login</Button>
+              </Flex>
+            </Modal>
           </Col>
         </Row>
       </Form.Item>
@@ -112,8 +141,8 @@ const Login = () => {
           span: 24,
         }}
       >
-        <Button className="w-full">
-          <Link href="/sign-up">Register</Link>
+        <Button className="w-full" onClick={() => setPopUp("signUp")}>
+          Register
         </Button>
       </Form.Item>
       <Divider>

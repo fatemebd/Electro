@@ -12,6 +12,7 @@ import {
   Col,
   Flex,
   Modal,
+  Badge,
 } from "antd";
 import { FaArrowRight, FaTwitter, FaFacebookF } from "react-icons/fa6";
 import Login from "../Forms/Login";
@@ -30,21 +31,34 @@ import {
 } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import FooterLogo from "@/assets/images/FooterLogo.svg";
+import CartItem from "@/assets/images/CartItem.png";
 import Logo from "@/assets/images/Logo.svg";
 import Typography from "antd/es/typography/Typography";
 import { InstagramFilled } from "@ant-design/icons";
+import SignUp from "../Forms/SignUp";
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const PublicLayout = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState("mail");
-  const [loginOpen, setLoginOpen] = useState(false);
-
+  const [popup, setPopUp] = useState(null);
+  const cartItems = [
+    {
+      title: "Apple iPhone 14 Pro",
+      price: "$1999.00",
+      quantity: 1,
+      img: CartItem,
+    },
+    {
+      title: "Asus ROG Delta S",
+      price: "$250.00",
+      quantity: 1,
+      img: CartItem,
+    },
+  ];
   const url = usePathname();
-  useEffect(() => {
-    console.log(url);
-  }, []);
+
   const menuItems = [
     {
       label: <Link href="/">Home</Link>,
@@ -107,7 +121,7 @@ const PublicLayout = ({ children }) => {
                   prefix={<CiSearch size={24} />}
                 />
               </Col>
-              <Col className="flex row-reverse justify-end gap-2" span={6}>
+              <Col className="flex row-reverse justify-end gap-5" span={6}>
                 <Button
                   className="border-none rounded-2xl"
                   icon={<CiSearch size={24} />}
@@ -119,24 +133,43 @@ const PublicLayout = ({ children }) => {
                 <Button
                   onClick={() => setVisible(true)}
                   className="border-none rounded-2xl"
-                  icon={<CiShoppingCart size={24} />}
+                  icon={
+                    <Badge color="rgba(28, 78, 142, 1)
+                    " count={3}>
+                      <CiShoppingCart size={24} />
+                    </Badge>
+                  }
                 />
-                <Button type="primary" onClick={() => setLoginOpen(true)}>
+                <Button type="primary" onClick={() => setPopUp("login")}>
                   Login
                 </Button>
                 <Modal
-                  open={loginOpen}
-                  onCancel={() => setLoginOpen(false)}
+                  open={popup === "login" ? true : false}
+                  onCancel={() => setPopUp(null)}
                   closable={false}
                   className="w-[30%]"
                   footer=""
                 >
                   <Button
-                    onClick={() => setLoginOpen(false)}
+                    onClick={() => setPopUp(null)}
                     icon={<CloseOutlined />}
                     className="absolute top-[-40px] right-0"
                   />
-                  <Login />
+                  <Login setPopUp={setPopUp} />
+                </Modal>
+                <Modal
+                  open={popup === "signUp" ? true : false}
+                  onCancel={() => setPopUp(null)}
+                  closable={false}
+                  className="w-[30%]"
+                  footer=""
+                >
+                  <Button
+                    onClick={() => setPopUp(null)}
+                    icon={<CloseOutlined />}
+                    className="absolute top-[-40px] right-0"
+                  />
+                  <SignUp setPopUp={setPopUp} />
                 </Modal>
               </Col>
             </Row>
@@ -242,17 +275,13 @@ const PublicLayout = ({ children }) => {
           </Footer>
         </Layout>
         <Drawer
+          className="text-black"
           title="Basic Drawer"
           placement="right"
           closable={false}
           onClose={() => setVisible(false)}
           open={visible}
-        >
-          {/* Drawer content goes here */}
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
+        ></Drawer>
       </Layout>
     </>
   );
