@@ -1,0 +1,36 @@
+[
+    {
+        "id": 0,
+        "title": "Apple iPhone 14 Pro",
+        "colors": [
+            {
+                "color": "red",
+                "price": 999
+            },
+            {
+                "color": "blue",
+                "price": 1200
+            }
+        ],
+        "rate": 4,
+        "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
+        "img": "/Iphone.png"
+    },
+    {
+        "id": 1,
+        "title": "Apple iPad Mini 6 Wi-Fi",
+        "colors": [
+            {
+                "color": "#5D30BE",
+                "price": 1000
+            },
+            {
+                "color": "#101316",
+                "price": 1790
+            }
+        ],
+        "rate": 5,
+        "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
+        "img": "/Ipad.png"
+    }
+]

@@ -24,8 +24,9 @@ export const CartProvider = ({ children }) => {
 
   // Function to remove items from the cart
   const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
+    let newCartItems = [...cartItems];
+   newCartItems= newCartItems.filter(item => item.id !== index)
+    // newCartItems.splice(index, 1);
     setCartItems(newCartItems);
   };
 

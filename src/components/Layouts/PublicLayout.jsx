@@ -49,21 +49,9 @@ const PublicLayout = ({ children }) => {
   const [popup, setPopUp] = useState(null);
 
   useEffect(() => {
-    console.log(cartItems);
-    addToCart({
-      id: 0,
-      title: "Apple iPhone 14 Pro",
-      price: 1999.0,
-      quantity: 1,
-      img: CartItem,
-    });
-    addToCart({
-      id: 1,
-      title: "Asus ROG Delta S",
-      price: 250.0,
-      quantity: 1,
-      img: CartItem,
-    });
+    // console.log(cartItemes[0]);
+    // addToCart(cartItemes[0]);
+    // addToCart(cartItemes[1]);
   }, []);
 
   const cartItemes = [
@@ -327,13 +315,14 @@ const PublicLayout = ({ children }) => {
                           justify="center"
                           align="center"
                         >
-                          <Image src={item.img} alt={item.title} />
+                          <Image src={item.img} alt={item.title}  width={200}
+              height={100}/>
                         </Flex>
                       </Col>
                       <Col span={12} className="">
                         <Typography>{item.title}</Typography>
                         <Typography className=" font-extrabold	">
-                          ${item.price}
+                          ${item.colors[0].price}
                         </Typography>
                         <Typography>QTY: {item.quantity}</Typography>
                       </Col>
@@ -341,9 +330,9 @@ const PublicLayout = ({ children }) => {
                         <Button
                           className="border-none rounded-2xl"
                           onClick={() =>
-                            removeFromCart(
+                         {  console.log(item.id); removeFromCart(
                               item.id
-                            )
+                            )}
                           }
                           icon={
                             <DeleteOutlined className="text-red-500 text-lg align-end" />
