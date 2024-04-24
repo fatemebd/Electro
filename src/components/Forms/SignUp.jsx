@@ -138,7 +138,7 @@ const SignUp = ({ setPopUp }) => {
         footer=""
       >
         <Button
-          onClick={() => setPopUp(null)}
+          onClick={() => setOtpOpen(false)}
           icon={<CloseOutlined />}
           className="absolute top-[-40px] right-0"
         />

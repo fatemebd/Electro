@@ -12,25 +12,25 @@
                 "price": 1200
             }
         ],
-        "price": 1999.0,
+        "rate": 4,
         "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-        "img": "@/assets/images/Iphone.png"
+        "img": "/Iphone.png"
     },
     {
         "id": 1,
         "title": "Apple iPad Mini 6 Wi-Fi",
         "colors": [
             {
-                "color": "red",
+                "color": "#5D30BE",
                 "price": 1000
             },
             {
-                "color": "blue",
+                "color": "#101316",
                 "price": 1790
             }
         ],
-        "price": 1999.0,
+        "rate": 5,
         "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-        "img": "@/assets/images/Ipad.png"
+        "img": "/Ipad.png"
     }
 ]
