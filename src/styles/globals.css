@@ -47,3 +47,6 @@ body {
   height:50%;
   font-weight: 800;
 }
+.numberInput.ant-input-affix-wrapper >input.ant-input{
+    text-align: center;
+  }
