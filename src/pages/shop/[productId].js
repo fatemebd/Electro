@@ -15,19 +15,57 @@ import { HeartOutlined } from "@ant-design/icons";
 import products from "@/assets/Products.json";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import NumberInput from "@/components/Inputs/NumberInput";
+
 const Product = () => {
   const productId = useRouter().query.productId;
   const [product, setProduct] = useState();
   const [isReady, setIsReady] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const [color, setColor] = useState();
+  const [price, setPrice] = useState();
+  const [cartProduct, setCartProduct] = useState({
+    id: null,
+    title: null,
+    price: null,
+    quantity: null,
+    img: null,
+    color: null,
+  });
   const { cartItems, addToCart, removeFromCart } = useCart();
+  useEffect(() => {
+    if (products[productId] != undefined) {
+      console.log(products[productId].colors);
+      setProduct(products[productId]);
+      setIsReady(true);
+      if (isReady) {
+        setCartProduct();
+        setPrice(product.colors[0].price);
+        setColor(product.colors[0].color);
+      }
+      // {
+      //   id: product.id,
+      //   title: product.title,
+      //   price: product,
+      //   quantity: null,
+      //   img: null,
+      //   color: null,
+      // }
+    }
+  }, [productId,product]);
+
+const changePrice=(color)=>{
+  const selectedColor = product.colors.find(
+    (item) => item.color === color
+  );
+  setPrice(selectedColor.price);
+  setColor(color)
+}
+
 
   useEffect(() => {
-   
-    setProduct(products[productId]);
-    if (products[productId] != undefined) {
-      setIsReady(true);
-    }
-  }, [productId]);
+ 
+  }, [product]);
   return isReady ? (
     <Flex vertical className="px-24 mt-10">
       <Breadcrumb
@@ -71,7 +109,7 @@ const Product = () => {
               5.0 (121 Reviews)
             </Typography>
           </Flex>
-          <Typography>${product.colors[0].price}</Typography>
+          <Typography>${price}</Typography>
           <Typography>{product.description}</Typography>
           <Flex vertical className="space-y-2">
             <Typography className="font-black">Colors</Typography>
@@ -79,24 +117,30 @@ const Product = () => {
               {product.colors.map((item, index) => {
                 return (
                   <Col
+                    onClick={() =>changePrice(item.color) }
                     span={2}
                     key={index}
-                    className={`bg-[${item.color}] mx-1 rounded-lg  py-[1.4rem]`}
+                    className={`mx-1 rounded-lg  py-[1.4rem] cursor-pointer 	`}
+                    style={{ backgroundColor: `${item.color}` }}
                   ></Col>
                 );
               })}
             </Row>
           </Flex>
           <Row justify="space-between" className="items-center pt-5">
-            <Col span={5}>
-              <InputNumber />
+            <Col span={6} className="min-h-full ">
+              <NumberInput value={quantity} setValue={setQuantity} />
             </Col>
             <Col span={13}>
-              <Button onClick={()=>addToCart(product)} type="primary" className="w-full h-12">
+              <Button
+                onClick={() => addToCart(product)}
+                type="primary"
+                className="w-full h-10"
+              >
                 Add to cart
               </Button>
             </Col>
-            <Col span={5} className="text-center">
+            <Col span={1} className="text-center">
               <HeartOutlined className="text-lg" />
             </Col>
           </Row>

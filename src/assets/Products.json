@@ -4,11 +4,11 @@
         "title": "Apple iPhone 14 Pro",
         "colors": [
             {
-                "color": "red",
+                "color": "#5D30BE",
                 "price": 999
             },
             {
-                "color": "blue",
+                "color": "#101316",
                 "price": 1200
             }
         ],

@@ -315,8 +315,12 @@ const PublicLayout = ({ children }) => {
                           justify="center"
                           align="center"
                         >
-                          <Image src={item.img} alt={item.title}  width={200}
-              height={100}/>
+                          <Image
+                            src={item.img}
+                            alt={item.title}
+                            width={200}
+                            height={100}
+                          />
                         </Flex>
                       </Col>
                       <Col span={12} className="">
@@ -329,11 +333,10 @@ const PublicLayout = ({ children }) => {
                       <Col span={1} className="flex justify-start  pt-10">
                         <Button
                           className="border-none rounded-2xl"
-                          onClick={() =>
-                         {  console.log(item.id); removeFromCart(
-                              item.id
-                            )}
-                          }
+                          onClick={() => {
+                            console.log(item.id);
+                            removeFromCart(item.id);
+                          }}
                           icon={
                             <DeleteOutlined className="text-red-500 text-lg align-end" />
                           }
