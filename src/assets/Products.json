@@ -20,6 +20,15 @@
             "/Iphone.png",
             "/Iphone.png"
         ],
+        "details": {
+            "Brand": "Apple",
+            "Item Height": "65 Cm",
+            "Item Width": "31.4 CM",
+            "Screen Size": "6.5 Inch",
+            "Model Number": "MF841HN/A",
+            "RAM Size": "6 GB",
+            "Operating System": "ios 17"
+        },
         "reviews": [
             {
                 "profilePic": "/william.png",
@@ -61,9 +70,18 @@
             "/Ipad.png",
             "/Ipad.png"
         ],
+        "details": {
+            "Brand": "Apple",
+            "Item Height": "65 Cm",
+            "Item Width": "31.4 CM",
+            "Screen Size": "6.5 Inch",
+            "Model Number": "MF841HN/A",
+            "RAM Size": "6 GB",
+            "Operating System": "ios 17"
+        },
         "reviews": [
             {
-                "profilePic":"/william.png",
+                "profilePic": "/william.png",
                 "name": "Mark Williams",
                 "rate": 5,
                 "title": "Excellent Product, I Love It 😍",
