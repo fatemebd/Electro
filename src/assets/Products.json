@@ -14,7 +14,30 @@
         ],
         "rate": 4,
         "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-        "img": "/Iphone.png"
+        "img": [
+            "/Iphone.png",
+            "/Iphone.png",
+            "/Iphone.png",
+            "/Iphone.png"
+        ],
+        "reviews": [
+            {
+                "profilePic": "/william.png",
+                "name": "Mark Williams",
+                "rate": 5,
+                "title": "Excellent Product, I Love It 😍",
+                "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                "date": " Sep 08, 2023"
+            },
+            {
+                "profilePic": "/alexa.png",
+                "name": "Alexa Johnson",
+                "rate": 5,
+                "title": "My Brother is very much happy with this iPhone",
+                "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                "date": " Sep 08, 2023"
+            }
+        ]
     },
     {
         "id": 1,
@@ -31,6 +54,30 @@
         ],
         "rate": 5,
         "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-        "img": "/Ipad.png"
+        "img": [
+            "/Ipad.png",
+            "/Ipad.png",
+            "/Ipad.png",
+            "/Ipad.png",
+            "/Ipad.png"
+        ],
+        "reviews": [
+            {
+                "profilePic":"/william.png",
+                "name": "Mark Williams",
+                "rate": 5,
+                "title": "Excellent Product, I Love It 😍",
+                "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                "date": " Sep 08, 2023"
+            },
+            {
+                "profilePic": "/alexa.png",
+                "name": "Alexa Johnson",
+                "rate": 5,
+                "title": "My Brother is very much happy with this iPhone",
+                "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                "date": " Sep 08, 2023"
+            }
+        ]
     }
 ]
