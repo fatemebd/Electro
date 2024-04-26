@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import NumberInput from "@/components/Inputs/NumberInput";
 import RelatedList from "@/components/Display/RelatedList";
-
+import AdditionalInfo from "@/components/Display/AdditionalInfo";
 const Product = () => {
   const productId = useRouter().query.productId;
   const [product, setProduct] = useState();
@@ -253,56 +253,58 @@ const Product = () => {
         ) : productContent === "reviews" ? (
           <Review reviews={product.reviews} />
         ) : (
-          ""
+          <AdditionalInfo data={product.details} />
         )}
       </Row>
       <Row className="w-full">
-
-      <RelatedList title="Related Products"  gridItems={[
-          //will be updated with back-end data
-          {
-            img: Tablet,
-            label: "Apple iPad Pro Wi-Fi",
-            rate: 3,
-            price: "$1520",
-          },
-          {
-            img: Tablet,
-            label: "Apple iPad Mini 6 Wi-Fi",
-            rate: 3,
-            price: "$500.00",
-          },
-          {
-            img: Tablet,
-            label: "Microsoft Surface Go",
-            rate: 5,
-            price: "$399.00",
-          },
-          {
-            img: Tablet,
-            label: "LG 4K Ultra UHD TV",
-            rate: 5,
-            price: "$5500.00",
-          },
-          {
-            img: Tablet,
-            label: "Samsung Galaxy S22 Ultra",
-            rate: 5,
-            price: "$1350.00",
-          },
-          {
-            img: Tablet,
-            label: "Apple iPhone 14 Plus",
-            rate: 5,
-            price: "$850.00",
-          },
-          {
-            img: Tablet,
-            label: "Bose QuietComfort 45",
-            rate: 5,
-            price: "$300.00",
-          },
-        ]}/>
+        <RelatedList
+          title="Related Products"
+          gridItems={[
+            //will be updated with back-end data
+            {
+              img: Tablet,
+              label: "Apple iPad Pro Wi-Fi",
+              rate: 3,
+              price: "$1520",
+            },
+            {
+              img: Tablet,
+              label: "Apple iPad Mini 6 Wi-Fi",
+              rate: 3,
+              price: "$500.00",
+            },
+            {
+              img: Tablet,
+              label: "Microsoft Surface Go",
+              rate: 5,
+              price: "$399.00",
+            },
+            {
+              img: Tablet,
+              label: "LG 4K Ultra UHD TV",
+              rate: 5,
+              price: "$5500.00",
+            },
+            {
+              img: Tablet,
+              label: "Samsung Galaxy S22 Ultra",
+              rate: 5,
+              price: "$1350.00",
+            },
+            {
+              img: Tablet,
+              label: "Apple iPhone 14 Plus",
+              rate: 5,
+              price: "$850.00",
+            },
+            {
+              img: Tablet,
+              label: "Bose QuietComfort 45",
+              rate: 5,
+              price: "$300.00",
+            },
+          ]}
+        />
       </Row>
     </Flex>
   ) : (
