@@ -11,7 +11,7 @@ const scroll = (offset)=>{
 }
 
   return (
-    <Flex vertical className="px-16 my-10">
+    <Flex vertical className="md:px-16 px-5 my-10 space-y-3">
       <Row justify="space-between">
         <Col span={12}>
           <Typography>{title}</Typography>

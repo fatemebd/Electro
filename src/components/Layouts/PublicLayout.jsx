@@ -109,7 +109,7 @@ const PublicLayout = ({ children }) => {
               url === "/" || url === "/home-page" ? "bg-grey" : "bg-white"
             } pt-5 h-auto`}
           >
-            <Row justify="space-around" align="cenetr">
+            <Row justify="space-between md:px-10 px-5 mb-5 items-center" align="cenetr">
               <Col span={6}>
                 <Image
                   className="color-primary-1000"
@@ -118,7 +118,7 @@ const PublicLayout = ({ children }) => {
                   src={Logo}
                 />
               </Col>
-              <Col span={8}>
+              <Col span={8} className="hidden md:flex">
                 <Search
                   enterButton="Search"
                   addonBefore={
@@ -135,11 +135,11 @@ const PublicLayout = ({ children }) => {
               </Col>
               <Col className="flex row-reverse justify-end gap-5" span={6}>
                 <Button
-                  className="border-none rounded-2xl"
+                  className="border-none rounded-2xl hidden md:flex"
                   icon={<CiSearch size={24} />}
                 />
                 <Button
-                  className="border-none rounded-2xl"
+                  className="border-none rounded-2xl hidden md:flex"
                   icon={<CiHeart size={24} />}
                 />
                 <Button
@@ -162,7 +162,7 @@ const PublicLayout = ({ children }) => {
                   open={popup === "login" ? true : false}
                   onCancel={() => setPopUp(null)}
                   closable={false}
-                  className="w-[30%]"
+                  className="md:w-[30%] w-[90%]"
                   footer=""
                 >
                   <Button
@@ -176,7 +176,7 @@ const PublicLayout = ({ children }) => {
                   open={popup === "signUp" ? true : false}
                   onCancel={() => setPopUp(null)}
                   closable={false}
-                  className="w-[30%]"
+                  className="md:w-[30%] w-[90%]"
                   footer=""
                 >
                   <Button
@@ -188,11 +188,11 @@ const PublicLayout = ({ children }) => {
                 </Modal>
               </Col>
             </Row>
-            <Row justify="start" className="pl-10" align="cenetr">
+            <Row justify="space-between" className="pl-10" align="cenetr">
               <Col span={8}>
                 <Cascader className="bg-grey" placeholder="All Categories" />
               </Col>
-              <Col span={8}>
+              <Col xs={8}  md={16}>
                 <Menu
                   onClick={(e) => setCurrentPage(e.key)}
                   selectedKeys={[currentPage]}
@@ -207,77 +207,77 @@ const PublicLayout = ({ children }) => {
           <Content>{children} </Content>
           <Footer
             justify="space-around"
-            className="space-y-5 bg-primary-1000  "
+            className="space-y-5 bg-primary-1000 p-5 md:p-10"
           >
-            <Row gutter={[40, 16]}>
+            <Row gutter={[16, 16]} className="text-[10px]">
               <Col className="py-2 gutter-row space-y-5" span={6}>
                 <Image priority={true} src={FooterLogo} alt="logo" />
                 <Flex className="flex flex-row justify-start items-center gap-2">
                   <CiPhone size={20} color="white" />
-                  <Typography className="text-white">(316) 555-0116</Typography>
+                  <Typography className="text-white text-[10px] md:text-sm">(316) 555-0116</Typography>
                 </Flex>
                 <Flex className="flex flex-row justify-start items-center gap-2">
                   <CiMail size={20} color="white" />
-                  <Typography className="text-white">
+                  <Typography className="text-white text-[10px] md:text-sm">
                     electro@example.com
                   </Typography>
                 </Flex>
                 <Flex className="flex flex-row justify-start items-start gap-2">
                   <CiLocationOn size={25} color="white" />
-                  <Typography className="text-white ">
+                  <Typography className="text-white text-[10px] md:text-sm">
                     4140 Parker Rd. Allentown, New Mexico 31134
                   </Typography>
                 </Flex>
               </Col>
               <Col className="py-2 pl-10 gutter-row space-y-3" span={6}>
-                <Typography className="font-bold text-white">
+                <Typography className="font-bold text-white text-[10px] md:text-sm">
                   Information
                 </Typography>
-                <Typography className="text-white">My Account</Typography>
-                <Typography className="text-white">Login</Typography>
-                <Typography className="text-white">My Cart</Typography>
-                <Typography className="text-white">My Wishlist</Typography>
-                <Typography className="text-white">Checkout</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">My Account</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">Login</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">My Cart</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">My Wishlist</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">Checkout</Typography>
               </Col>
               <Col className="py-2 gutter-row space-y-3" span={6}>
-                <Typography className="font-bold text-white">
+                <Typography className="font-bold text-white text-[10px] md:text-sm">
                   Service
                 </Typography>
-                <Typography className="text-white">About Us</Typography>
-                <Typography className="text-white">Careers</Typography>
-                <Typography className="text-white">
+                <Typography className="text-white text-[10px] md:text-sm">About Us</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">Careers</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
                   Delivery Information
                 </Typography>
-                <Typography className="text-white">Privacy Policy</Typography>
-                <Typography className="text-white">
+                <Typography className="text-white text-[10px] md:text-sm">Privacy Policy</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
                   Terms & Conditions
                 </Typography>
               </Col>
               <Col className="py-2 gutter-row space-y-3" span={6}>
-                <Typography className="font-bold text-white">
+                <Typography className="font-bold text-white text-[10px] md:text-sm">
                   Subscribe
                 </Typography>
-                <Typography className="text-white">
+                <Typography className="text-white text-[10px] md:text-sm">
                   Enter your email below to be the first to know about new
                   collections.
                 </Typography>
                 <Input
                   variant="filled"
-                  size="large"
+                  // size={md}
                   placeholder="Your e-mail"
-                  className="text-white bg-grey"
+                  className="text-white bg-grey text-[10px] md:text-sm"
                   prefix={<CiMail size={20} />}
                   suffix={<FaArrowRight />}
                 />
                 <style>{`::placeholder {  color: white !important; }`}</style>
               </Col>
             </Row>
-            <Row justify="space-between">
+            <Row justify="space-between text-[10px] md:text-sm">
               <Col span={8}>
                 <Image priority={true} src={companies} alt="companies" />
               </Col>
               <Col span={8}>
-                <Typography className="text-white">
+                <Typography className="text-white text-[10px] md:text-sm">
                   ©2023 Electro All Rights are reserved️
                 </Typography>
               </Col>

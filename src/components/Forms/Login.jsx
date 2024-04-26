@@ -104,7 +104,7 @@ const Login = ({ setPopUp }) => {
               open={changePassOpen}
               onCancel={() => setChangePassOpen(false)}
               closable={false}
-              className="w-[30%]"
+              className="md:w-[30%] w-[90%]"
               footer=""
             >
               <Button

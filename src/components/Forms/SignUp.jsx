@@ -134,7 +134,7 @@ const SignUp = ({ setPopUp }) => {
         open={otpOpen}
         onCancel={() => setOtpOpen(false)}
         closable={false}
-        className="w-[30%]"
+        className="md:w-[30%] w-[90%]"
         footer=""
       >
         <Button

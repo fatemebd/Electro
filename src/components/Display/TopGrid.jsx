@@ -24,9 +24,9 @@ const TopGrid = ({ title, gridItems }) => {
 
   return (
     <>
-      <Row justify="space-between" className="my-5 px-16">
+      <Row justify="space-between" className="my-5 md:px-16 px-5">
         <Col span={10}>
-          <Typography className="font-bold text-3xl	">{title}</Typography>
+          <Typography className="font-bold md:text-3xl	text-xl">{title}</Typography>
         </Col>
         <Col span={10}>
           <Menu

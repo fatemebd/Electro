@@ -44,13 +44,13 @@ const HomePage = () => {
   ];
   return (
     <>
-      <Row justify="start" className="bg-grey">
-        <Col align="center" justify="start" span={10} className="pt-20 pl-20">
+      <Row justify="start" className="bg-grey ">
+        <Col align="center" justify="start" xs={20} md={10} className="md:pt-20 pt-5 px-10">
           <Flex className="flex-col justify-start space-y-3">
-            <Typography className="text-7xl	 font-extrabold	text-left		">
+            <Typography className="	md:text-7xl text-xl font-extrabold	text-left		">
               Great Sound With Solo Headphone
             </Typography>
-            <Typography className="text-lg text-left	">
+            <Typography className="md:text-lg text-sm text-left	">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum.
@@ -65,8 +65,8 @@ const HomePage = () => {
             </Button>
           </Flex>
         </Col>
-        <Col span={14}>
-          <Image priority={true} src={Hero} alt="hero" />
+        <Col className="hidden md:block" span={14}>
+          <Image priority={true} src={Hero} alt="hero"  />
         </Col>
       </Row>
       <Slider
@@ -120,12 +120,12 @@ const HomePage = () => {
                 </Typography>
                 <Button
                   type="primary"
-                  className="w-[150px] rtl"
+                  className="md:w-[150px] rtl"
                   style={{ direction: "rtl" }}
                   icon={<ArrowRightOutlined />}
                 >
                   Shop Now
-                </Button>{" "}
+                </Button>
               </Flex>
             </Col>
             <Col>
@@ -148,7 +148,7 @@ const HomePage = () => {
                 </Typography>
                 <Button
                   type="primary"
-                  className="w-[150px] rtl"
+                  className="md:w-[150px] rtl"
                   style={{ direction: "rtl" }}
                   icon={<ArrowRightOutlined />}
                 >
@@ -281,7 +281,7 @@ const HomePage = () => {
         ]}
         className="px-10"
       />
-      <Row justify="center" className="px-16 my-10">
+      <Row gutter={[16,16]} justify="center" className="px-16 my-10">
         {ourOptions.map((option, index) => {
           return (
             <Col
