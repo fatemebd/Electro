@@ -3,7 +3,8 @@ import { Row, Col, Flex, Menu, Typography, Rate } from "antd";
 import Link from "next/link";
 
 import Image from "next/image";
-const TopGrid = ({ title,gridItems }) => {
+import ProductCard from "./ProductCard";
+const TopGrid = ({ title, gridItems }) => {
   const [currentPage, setCurrentPage] = useState("new");
 
   const menuItems = [
@@ -20,7 +21,6 @@ const TopGrid = ({ title,gridItems }) => {
       key: "topRated",
     },
   ];
-
 
   return (
     <>
@@ -39,44 +39,29 @@ const TopGrid = ({ title,gridItems }) => {
           />
         </Col>
       </Row>
-      <Row  className="mb-5 px-16" justify="center">
+      <Row className="mb-5 px-16" justify="center">
         <Col xs={24} sm={20} md={6} className=" gutter-row py-5">
           <Flex
             vertical
             className="bg-grey rounded-xl justify-between items-between h-full "
           >
             <Flex vertical className="m-5 space-y-3">
-
-            <Typography className="font-extrabold text-lg text-left ">
-              {gridItems[0].label}
-            </Typography>
-            <Typography className="text-lg">{gridItems[0].price}</Typography>
+              <Typography className="font-extrabold text-lg text-left ">
+                {gridItems[0].label}
+              </Typography>
+              <Typography className="text-lg">{gridItems[0].price}</Typography>
             </Flex>
 
             <Image priority={true} src={gridItems[0].img} alt="grid item" />
           </Flex>
         </Col>
-        <Col  xs={24} sm={20} md={18} className="gutter-row">
+        <Col xs={24} sm={20} md={18} className="gutter-row">
           <Row className="w-full">
             {gridItems.map((item, index) => {
               if (index === 0) {
                 return;
               }
-              return (
-                <Col key={index} xs={24} md={8} className="p-5 space-y-3">
-                  <Flex
-                    vertical
-                    className="bg-grey rounded-xl justify-center items-center  "
-                  >
-                    <Image priority={true} src={item.img} className="h-full" alt="grid item" />
-                  </Flex>
-                  <Typography className="font-extrabold text-base text-left">
-                    {item.label}
-                  </Typography>
-                  <Rate disabled value={item.rate} />
-                  <Typography className="text-lg">{item.price}</Typography>
-                </Col>
-              );
+              return <ProductCard lg={8} item={item} key={index} />;
             })}
           </Row>
         </Col>

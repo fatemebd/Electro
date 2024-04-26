@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "@/Contexts/CartContext";
 import { Breadcrumb, Row, Col, Flex, Rate, Tag, Menu, Button } from "antd";
 import { InstagramFilled } from "@ant-design/icons";
-
+import Tablet from "@/assets/images/Tablet.png";
+import Ipad from "@/assets/images/Ipad.png";
 import Typography from "antd/es/typography/Typography";
 import { FaTwitter, FaFacebookF } from "react-icons/fa6";
 import Review from "@/components/Display/Review";
@@ -11,6 +12,7 @@ import products from "@/assets/Products.json";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import NumberInput from "@/components/Inputs/NumberInput";
+import RelatedList from "@/components/Display/RelatedList";
 
 const Product = () => {
   const productId = useRouter().query.productId;
@@ -62,7 +64,7 @@ const Product = () => {
   }, [price, quantity, color]);
 
   return isReady ? (
-    <Flex vertical className="px-24 mt-10">
+    <Flex vertical className=" px-8 md:px-24 mt-10 space-y-5">
       <Breadcrumb
         items={[
           {
@@ -91,25 +93,25 @@ const Product = () => {
             />
           </Flex>
         </Col>
-          <Row
-            gutter={[16, 16]}
-            justify="space-between"
-            className=" py-3 md:hidden"
-          >
-            {product.img.map((img, index) => {
-              return (
-                <Col sm={4} xs={8}>
-                  <Flex
-                    justify="center"
-                    align="center"
-                    className="p-5 bg-grey rounded-lg"
-                  >
-                    <Image src={img} width={50} height={50} />
-                  </Flex>
-                </Col>
-              );
-            })}
-          </Row>
+        <Row
+          gutter={[16, 16]}
+          justify="space-between"
+          className=" py-3 md:hidden"
+        >
+          {product.img.map((img, index) => {
+            return (
+              <Col sm={4} xs={8} key={index}>
+                <Flex
+                  justify="center"
+                  align="center"
+                  className="p-5 bg-grey rounded-lg"
+                >
+                  <Image src={img} width={50} height={50} alt={product.title} />
+                </Flex>
+              </Col>
+            );
+          })}
+        </Row>
         <Col xs={24} md={10} className="space-y-4">
           <Flex justify="space-between" align="center">
             <Typography className="text-3xl font-black">
@@ -148,7 +150,11 @@ const Product = () => {
               })}
             </Row>
           </Flex>
-          <Row gutter={[16,16]} justify="space-between" className="items-center pt-5">
+          <Row
+            gutter={[16, 16]}
+            justify="space-between"
+            className="items-center pt-5"
+          >
             <Col md={8} sm={10} xs={24} className="min-h-full ">
               <NumberInput value={quantity} setValue={setQuantity} />
             </Col>
@@ -168,18 +174,18 @@ const Product = () => {
           <Row>
             <Col span={24} className="space-y-2">
               <Typography className="font-black">Share</Typography>
-              <Row justify="start" gutter={16}>
-                <Col lg={2} sm={6}>
+              <Row justify="start" gutter={1}>
+                <Col lg={2} md={4} sm={2} xs={4}>
                   <Button className="p-2">
                     <FaFacebookF />
                   </Button>
                 </Col>
-                <Col lg={2} sm={6}>
+                <Col lg={2} md={4} sm={2} xs={4}>
                   <Button className="p-2">
                     <FaTwitter />
                   </Button>
                 </Col>
-                <Col lg={2} sm={6}>
+                <Col lg={2} md={4} sm={2} xs={4}>
                   <Button className="p-2 text-center flex items-center justify-center">
                     <InstagramFilled />
                   </Button>
@@ -210,7 +216,6 @@ const Product = () => {
       </Row>
       <Row>
         <Menu
-
           onClick={(e) => setProductContent(e.key)}
           selectedKeys={[productContent]}
           mode="horizontal"
@@ -245,7 +250,59 @@ const Product = () => {
       <Row className="pt-3">
         {productContent === "description" ? (
           <Typography>{product.description}</Typography>
-        ) : productContent==='reviews' ? (<Review reviews={product.reviews} />) :""}
+        ) : productContent === "reviews" ? (
+          <Review reviews={product.reviews} />
+        ) : (
+          ""
+        )}
+      </Row>
+      <Row className="w-full">
+
+      <RelatedList title="Related Products"  gridItems={[
+          //will be updated with back-end data
+          {
+            img: Tablet,
+            label: "Apple iPad Pro Wi-Fi",
+            rate: 3,
+            price: "$1520",
+          },
+          {
+            img: Tablet,
+            label: "Apple iPad Mini 6 Wi-Fi",
+            rate: 3,
+            price: "$500.00",
+          },
+          {
+            img: Tablet,
+            label: "Microsoft Surface Go",
+            rate: 5,
+            price: "$399.00",
+          },
+          {
+            img: Tablet,
+            label: "LG 4K Ultra UHD TV",
+            rate: 5,
+            price: "$5500.00",
+          },
+          {
+            img: Tablet,
+            label: "Samsung Galaxy S22 Ultra",
+            rate: 5,
+            price: "$1350.00",
+          },
+          {
+            img: Tablet,
+            label: "Apple iPhone 14 Plus",
+            rate: 5,
+            price: "$850.00",
+          },
+          {
+            img: Tablet,
+            label: "Bose QuietComfort 45",
+            rate: 5,
+            price: "$300.00",
+          },
+        ]}/>
       </Row>
     </Flex>
   ) : (
