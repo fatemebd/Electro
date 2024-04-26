@@ -114,7 +114,7 @@ const Login = ({ setPopUp }) => {
               />
 
               <Flex vertical className="space-y-3 mb-3 justify-center items-center text-center">
-                <Image src={ChangePass} />
+                <Image src={ChangePass} alt="change-pass"/>
                 <Typography className="text-3xl font-extrabold	">
                   Password Changed Successfully{" "}
                 </Typography>

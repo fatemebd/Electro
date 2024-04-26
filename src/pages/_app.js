@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import '@/styles/hideScrollbar.css'
 import { Montserrat } from "next/font/google";
 import PublicLayout from "@/components/Layouts/PublicLayout";
 import { CartProvider } from '@/Contexts/CartContext';
