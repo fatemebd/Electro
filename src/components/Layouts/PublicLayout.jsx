@@ -15,7 +15,6 @@ import {
   Flex,
   Modal,
   Badge,
-  Grid,
   Divider,
 } from "antd";
 import { FaArrowRight, FaTwitter, FaFacebookF } from "react-icons/fa6";
@@ -326,7 +325,7 @@ const PublicLayout = ({ children }) => {
                       <Col span={12} className="">
                         <Typography>{item.title}</Typography>
                         <Typography className=" font-extrabold	">
-                          ${item.colors[0].price}
+                          ${item.price}
                         </Typography>
                         <Typography>QTY: {item.quantity}</Typography>
                       </Col>
