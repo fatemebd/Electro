@@ -14,7 +14,6 @@ import Tablet from "@/assets/images/Tablet.png";
 import Ipad from "@/assets/images/Ipad.png";
 import Camera from "@/assets/images/Camera.png";
 import Iphone from "@/assets/images/Iphone.png";
-
 import Slider from "@/components/Display/Slider";
 import TopGrid from "@/components/Display/TopGrid";
 import { useState } from "react";
@@ -45,7 +44,7 @@ const HomePage = () => {
   ];
   return (
     <>
-      <Row justify="start">
+      <Row justify="start" className="bg-grey">
         <Col align="center" justify="start" span={10} className="pt-20 pl-20">
           <Flex className="flex-col justify-start space-y-3">
             <Typography className="text-7xl	 font-extrabold	text-left		">
@@ -70,6 +69,41 @@ const HomePage = () => {
           <Image priority={true} src={Hero} alt="hero" />
         </Col>
       </Row>
+      <Slider
+        title="Shop by Catrgories"
+        sliderItems={[
+          {
+            img: "/slider/iphone.png",
+            url: "/",
+            title: "Mobile Phones",
+          },
+          {
+            img: "/slider/tv.png",
+            url: "/",
+            title: "Smart TV",
+          },
+          {
+            img: "/slider/watch.png",
+            url: "/",
+            title: "Smart Watch",
+          },
+          {
+            img: "/slider/laptop.png",
+            url: "/",
+            title: "Laptops",
+          },
+          {
+            img: "/slider/drone.png",
+            url: "/",
+            title: "Drones",
+          },
+          {
+            img: "/slider/headphone.png",
+            url: "/",
+            title: "Headphones",
+          },
+        ]}
+      />
       <Row justify="space-around">
         <Col span={10} className="bg-gray-100 rounded-lg py-3 pl-5">
           <Row justify="space-between">
@@ -175,6 +209,7 @@ const HomePage = () => {
             price: "$300.00",
           },
         ]}
+        simple={false}
         className="px-10"
       />
       <Row
@@ -246,7 +281,7 @@ const HomePage = () => {
         ]}
         className="px-10"
       />
-      <Row justify="center" className="px-16">
+      <Row justify="center" className="px-16 my-10">
         {ourOptions.map((option, index) => {
           return (
             <Col
