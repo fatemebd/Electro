@@ -14,8 +14,10 @@ import Icon, { CloseOutlined, AppleFilled } from "@ant-design/icons";
 
 import Link from "next/link";
 import ChangePass from "@/assets/images/ChangePass.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Signin } from "@/pages/api/APIs";
+import { toast } from "react-toastify";
 const GoogleIcon = () => (
   <svg
     width="21"
@@ -52,8 +54,22 @@ const GoogleIcon = () => (
 );
 const Login = ({ setPopUp }) => {
   const [changePassOpen, setChangePassOpen] = useState(false);
+  const [data, setData] = useState({});
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+    try {
+      const response = await Signin(data);
+      if (response.status === 200) {
+        sessionStorage.setItem("token", response.data.token)
+        console.log(response.data);
+        toast.success("you have logged in successfully!");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
   return (
-    <Form title="Welcome 👋 " layout="vertical">
+    <Form title="Welcome 👋 " layout="vertical" onFinish={handleSubmit}>
       <Flex vertical className="space-y-1 mb-3 ">
         <Typography className="text-3xl font-extrabold	">Welcome 👋 </Typography>
         <Typography className="text-gray-1000 text-base	">
@@ -70,7 +86,7 @@ const Login = ({ setPopUp }) => {
           },
         ]}
       >
-        <Input />
+        <Input onChange={(e) => setData({ ...data, email: e.target.value })} />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -82,7 +98,9 @@ const Login = ({ setPopUp }) => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+        />
       </Form.Item>
       <Form.Item
         name="remember"
@@ -96,8 +114,13 @@ const Login = ({ setPopUp }) => {
             <Checkbox>Remember me</Checkbox>
           </Col>
           <Col span={8}>
-            <Typography className="cursor-pointer" onClick={() => {setChangePassOpen(true); setPopUp(false)}}>
-
+            <Typography
+              className="cursor-pointer"
+              onClick={() => {
+                setChangePassOpen(true);
+                setPopUp(false);
+              }}
+            >
               Forgot Password?
             </Typography>
             <Modal
@@ -113,15 +136,27 @@ const Login = ({ setPopUp }) => {
                 className="absolute top-[-40px] right-0"
               />
 
-              <Flex vertical className="space-y-3 mb-3 justify-center items-center text-center">
-                <Image src={ChangePass} alt="change-pass"/>
+              <Flex
+                vertical
+                className="space-y-3 mb-3 justify-center items-center text-center"
+              >
+                <Image src={ChangePass} alt="change-pass" />
                 <Typography className="text-3xl font-extrabold	">
                   Password Changed Successfully{" "}
                 </Typography>
                 <Typography className="text-gray-1000 text-base	">
                   Your password has been updated successfully
                 </Typography>
-                <Button type="primary" className="w-full h-12" onClick={() => {setChangePassOpen(false); setPopUp("login")}}>Back to Login</Button>
+                <Button
+                  type="primary"
+                  className="w-full h-12"
+                  onClick={() => {
+                    setChangePassOpen(false);
+                    setPopUp("login");
+                  }}
+                >
+                  Back to Login
+                </Button>
               </Flex>
             </Modal>
           </Col>

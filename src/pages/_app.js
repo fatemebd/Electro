@@ -1,10 +1,11 @@
 import "@/styles/globals.css";
-import '@/styles/hideScrollbar.css'
-import { Montserrat } from "next/font/google";
+import "@/styles/hideScrollbar.css";
+import "react-toastify/dist/ReactToastify.css";
 import PublicLayout from "@/components/Layouts/PublicLayout";
-import { CartProvider } from '@/Contexts/CartContext';
+import { CartProvider } from "@/Contexts/CartContext";
 import { ConfigProvider } from "antd";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 export default function App({ Component, pageProps }) {
   const [sidebarItems, setSidebarItems] = useState([]);
 
@@ -21,11 +22,12 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-    <CartProvider>
+      <CartProvider>
         <PublicLayout>
           <Component {...pageProps} />
         </PublicLayout>
-      </CartProvider >
+      </CartProvider>
+      <ToastContainer />
     </ConfigProvider>
   );
 }

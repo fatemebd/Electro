@@ -12,8 +12,13 @@ import {
 } from "antd";
 import AddReview from "../Forms/AddReview";
 import Image from "next/image";
-const Review = ({ reviews }) => {
+import { useEffect } from "react";
+const Review = ({ reviews, productId }) => {
+  useEffect(()=>{
+    console.log(reviews);
+  },[])
   return (
+    reviews&&
     <>
       <Typography className="font-black w-full">Customer Reviews</Typography>
       <Flex vertical justify="start" align="start" className="space-y-5 pt-3">
@@ -28,12 +33,12 @@ const Review = ({ reviews }) => {
             >
               <Row justify="start" align="center" gutter={16}>
                 <Col span={6}>
-                  <Image
+                  {/* <Image
                     src={review.profilePic}
                     width={50}
                     height={50}
                     alt="review"
-                  />
+                  /> */}
                 </Col>
                 <Col span={18}>
                   <Typography>{review.name}</Typography>
@@ -59,7 +64,7 @@ const Review = ({ reviews }) => {
           );
         })}
       </Flex>
-      <AddReview />
+      <AddReview productId={productId} />
     </>
   );
 };

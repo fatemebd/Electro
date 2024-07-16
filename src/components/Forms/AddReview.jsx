@@ -17,20 +17,35 @@ import Link from "next/link";
 import ChangePass from "@/assets/images/ChangePass.svg";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { PostReview } from "@/pages/api/APIs";
+import { toast } from "react-toastify";
 
-const AddReview = () => {
+const AddReview = ({ productId }) => {
   const [rate, setRate] = useState(0);
+  const [data, setData] = useState({
+    user: 7,
+    product: productId,
+    date: "2024-06-16",
+  });
+
+  const send = async () => {
+    try {
+      const response = await PostReview(data);
+      toast.success("review added successfully!");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
   useEffect(() => {
     console.log("Rate:", rate);
+    setData({ ...data, rate: rate });
   }, [rate]);
   return (
     <Form title="Review" layout="vertical" className="w-full mt-5">
-    
-        <Typography className="font-black ">Add your Review</Typography>
+      <Typography className="font-black ">Add your Review</Typography>
       <Form.Item label="Your Rating" name="rate" className="mt-1">
         <Flex className="space-x-4">
           <Rate
-          
             count={1}
             onClick={() => setRate(1)}
             value={rate === 1 && rate}
@@ -63,8 +78,8 @@ const AddReview = () => {
         </Flex>
       </Form.Item>
       <Form.Item
-        label="Name"
-        name="name"
+        label="Title"
+        name="title"
         rules={[
           {
             required: false,
@@ -72,7 +87,7 @@ const AddReview = () => {
           },
         ]}
       >
-        <Input />
+        <Input onChange={(e) => setData({ ...data, title: e.target.value })} />
       </Form.Item>
       <Form.Item
         label="Email Address"
@@ -95,14 +110,16 @@ const AddReview = () => {
           },
         ]}
       >
-        <Input.TextArea />
+        <Input.TextArea
+          onChange={(e) => setData({ ...data, body: e.target.value })}
+        />
       </Form.Item>
       <Form.Item
         wrapperCol={{
           span: 24,
         }}
       >
-        <Button type="primary">
+        <Button onClick={send} type="primary">
           Submit
         </Button>
       </Form.Item>

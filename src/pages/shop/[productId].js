@@ -8,12 +8,14 @@ import Typography from "antd/es/typography/Typography";
 import { FaTwitter, FaFacebookF } from "react-icons/fa6";
 import Review from "@/components/Display/Review";
 import { HeartOutlined } from "@ant-design/icons";
-import products from "@/assets/Products.json";
+// import products from "@/assets/Products.json";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import NumberInput from "@/components/Inputs/NumberInput";
 import RelatedList from "@/components/Display/RelatedList";
 import AdditionalInfo from "@/components/Display/AdditionalInfo";
+import { GetProductById, PostCartItem } from "../api/APIs";
+import { toast } from "react-toastify";
 const Product = () => {
   const productId = useRouter().query.productId;
   const [product, setProduct] = useState();
@@ -31,21 +33,37 @@ const Product = () => {
     color: null,
   });
   const { cartItems, addToCart, removeFromCart } = useCart();
+
+  const getProduct = async () => {
+    try {
+      const response = await GetProductById(productId);
+      if (response.status === 200) {
+        console.log(response.data);
+        setProduct(response.data);
+        setIsReady(true);
+
+        console.log(response.data);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   useEffect(() => {
-    if (products[productId] != undefined) {
-      console.log(products[productId].colors);
-      setProduct(products[productId]);
-      setIsReady(true);
+    if (productId != undefined) {
+      getProduct();
       if (isReady) {
         setCartProduct();
-        setPrice(product.colors[0].price);
-        setColor(product.colors[0].color);
+        setPrice(product.product_variants[0].price);
+        setColor(product.product_variants[0].color.code);
       }
     }
-  }, [productId, product]);
+  }, [productId]);
 
   const changePrice = (color) => {
-    const selectedColor = product.colors.find((item) => item.color === color);
+    const selectedColor = product.product_variants.find(
+      (item) => item.color.code === color
+    );
     setPrice(selectedColor.price);
     setColor(color);
   };
@@ -57,7 +75,7 @@ const Product = () => {
         title: product.title,
         price: price,
         quantity: quantity,
-        img: product.img[0],
+        img: product.images[0],
         color: color,
       });
     }
@@ -86,7 +104,7 @@ const Product = () => {
             className="p-5 bg-grey rounded-lg h-full"
           >
             <Image
-              src={product.img[0]}
+              src={product.images[0].media}
               alt={product.title}
               width={200}
               height={100}
@@ -98,7 +116,7 @@ const Product = () => {
           justify="space-between"
           className=" py-3 md:hidden"
         >
-          {product.img.map((img, index) => {
+          {product.images.map((img, index) => {
             return (
               <Col sm={4} xs={8} key={index}>
                 <Flex
@@ -130,17 +148,17 @@ const Product = () => {
           <Flex vertical className="space-y-2">
             <Typography className="font-black">Colors</Typography>
             <Row>
-              {product.colors.map((item, index) => {
+              {product.product_variants.map((item, index) => {
                 return (
                   <Col
-                    onClick={() => changePrice(item.color)}
+                    onClick={() => changePrice(item.color.code)}
                     span={2}
                     key={index}
                     className={`mx-1 rounded-lg  py-[1.2rem] cursor-pointer`}
                     style={{
-                      backgroundColor: `${item.color}`,
+                      backgroundColor: `${item.color.code}`,
                       border: `${
-                        color === item.color
+                        color === item.color.code
                           ? "4px solid rgba(28, 78, 142, 1)"
                           : ""
                       }`,
@@ -160,7 +178,22 @@ const Product = () => {
             </Col>
             <Col md={8} sm={10} xs={22}>
               <Button
-                onClick={() => addToCart(cartProduct)}
+                onClick={async () => {
+                  console.log(color);
+                  const variant = product.product_variants.find(
+                    (variant) => variant.color.code === color
+                  );
+
+                  // Get the ID of the found product variant, or null if not found
+                  const variantId = variant ? variant.id : null;
+                  try {
+                    const respoonse = await PostCartItem(variantId);
+                    toast.success("Item added to cart successfully!");
+                  } catch (err) {
+                    toast.error(err.message);
+                  }
+                  addToCart(cartProduct);
+                }}
                 type="primary"
                 className="w-full h-10"
               >
@@ -200,7 +233,7 @@ const Product = () => {
         justify="space-between"
         className=" py-3 md:flex hidden w-[50%]"
       >
-        {product.img.map((img, index) => {
+        {product.images.map((img, index) => {
           return (
             <Col sm={4} xs={8} key={index}>
               <Flex
@@ -208,7 +241,12 @@ const Product = () => {
                 align="center"
                 className="p-5 bg-grey rounded-lg"
               >
-                <Image alt={product.title} src={img} width={50} height={50} />
+                <Image
+                  alt={product.title}
+                  src={img.media}
+                  width={50}
+                  height={50}
+                />
               </Flex>
             </Col>
           );
@@ -251,7 +289,7 @@ const Product = () => {
         {productContent === "description" ? (
           <Typography>{product.description}</Typography>
         ) : productContent === "reviews" ? (
-          <Review reviews={product.reviews} />
+          <Review productId={product.id} reviews={product.reviews} />
         ) : (
           <AdditionalInfo data={product.details} />
         )}

@@ -12,6 +12,8 @@ const ProductCard = ({ item, lg }) => {
           src={item.img}
           className="h-full"
           alt="grid item"
+          width={200}
+          height={500}
         />
       </Flex>
       <Typography className="font-extrabold text-base text-left">

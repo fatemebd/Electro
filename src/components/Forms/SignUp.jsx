@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Form,
@@ -9,6 +9,7 @@ import {
   Button,
   Divider,
   Typography,
+  OTPInput,
   Flex,
 } from "antd";
 import Icon, {
@@ -18,6 +19,8 @@ import Icon, {
 } from "@ant-design/icons";
 
 import Link from "next/link";
+import { OTP, Signup } from "@/pages/api/APIs";
+import { toast } from "react-toastify";
 const GoogleIcon = () => (
   <svg
     width="21"
@@ -54,14 +57,38 @@ const GoogleIcon = () => (
 );
 const SignUp = ({ setPopUp }) => {
   const [otpOpen, setOtpOpen] = useState(false);
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setPopUp(null);
-    setOtpOpen(true);
+  const [data, setData] = useState({});
+  const [otpData, setotpData] = useState({});
+  const checkOTP = async () => {
+    try {
+      const response = await OTP(otpData);
+      if (response.status === 200) {
+        toast.success("your account has been verified successfully!");
+        setPopUp(null);
+        setOtpOpen(false);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
-
+  const handleSubmit = async (e) => {
+    try {
+      const response = await Signup(data);
+      if (response.status === 201) {
+        console.log("ffffffffffffff");
+        toast.success("you have registered successfully!");
+        setPopUp(null);
+        setOtpOpen(true);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+  useEffect(() => {
+    console.log(otpData);
+  }, [otpData]);
   return (
-    <Form title="New Account" layout="vertical">
+    <Form title="New Account" layout="vertical" onFinish={handleSubmit}>
       <Flex vertical className="space-y-1 mb-3 ">
         <Typography className="text-3xl font-extrabold	">
           Create New Account
@@ -92,7 +119,12 @@ const SignUp = ({ setPopUp }) => {
           },
         ]}
       >
-        <Input />
+        <Input
+          onChange={(e) => {
+            setData({ ...data, email: e.target.value });
+            setotpData({ ...otpData, email: e.target.value });
+          }}
+        />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -104,7 +136,9 @@ const SignUp = ({ setPopUp }) => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+        />
       </Form.Item>
       <Form.Item
         name="remember"
@@ -120,12 +154,7 @@ const SignUp = ({ setPopUp }) => {
           span: 24,
         }}
       >
-        <Button
-          onClick={submitHandler}
-          type="primary"
-          htmlType="submit"
-          className="w-full"
-        >
+        <Button type="primary" htmlType="submit" className="w-full">
           Register
         </Button>
       </Form.Item>
@@ -156,24 +185,19 @@ const SignUp = ({ setPopUp }) => {
                 We have share a code of your registered email address
                 kristin.watson@example.com{" "}
               </Typography>
-            <Input.OTP
-              length={5}
-              className="px-5"
-              onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key)) {
-                  event.preventDefault();
-                }
-              }}
-            ></Input.OTP>
-            <Button
-              type="primary"
-              className="w-full h-12"
-              onClick={() => {
-              setOtpOpen(false)
-              }}
-            >
-              Send OTP{" "}
-            </Button>
+              <Input.OTP
+                length={5}
+                className="px-5"
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
+                onChange={(e) => setotpData({ ...otpData, code: e })}
+              ></Input.OTP>
+              <Button type="primary" className="w-full h-12" onClick={checkOTP}>
+                Send OTP{" "}
+              </Button>
             </Flex>
           </Form.Item>
         </Form>

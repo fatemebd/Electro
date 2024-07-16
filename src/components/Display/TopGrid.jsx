@@ -52,7 +52,7 @@ const TopGrid = ({ title, gridItems }) => {
               <Typography className="text-lg">{gridItems[0].price}</Typography>
             </Flex>
 
-            <Image priority={true} src={gridItems[0].img} alt="grid item" />
+            <Image priority={true} src={gridItems[0].img} alt="grid item" width={500} height={1000} />
           </Flex>
         </Col>
         <Col xs={24} sm={20} md={18} className="gutter-row">

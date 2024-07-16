@@ -38,37 +38,57 @@ import Logo from "@/assets/images/Logo.svg";
 import Typography from "antd/es/typography/Typography";
 import { InstagramFilled } from "@ant-design/icons";
 import SignUp from "../Forms/SignUp";
+import { PostCart } from "@/pages/api/APIs";
+import { toast } from "react-toastify";
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const PublicLayout = ({ children }) => {
-  const { cartItems, addToCart, removeFromCart } = useCart();
+  const { cartItems, addToCart, removeFromCart, totalCost } = useCart();
   const [visible, setVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState("mail");
   const [popup, setPopUp] = useState(null);
-
+  let token;
+  // const getToken = () => {
+  //   if (typeof window !== "undefined") {
+  //     const tokenString = sessionStorage.getItem("token");
+  //     const userToken = JSON.parse(tokenString);
+  //     return userToken;
+  //   }
+  // };
   useEffect(() => {
     // console.log(cartItemes[0]);
     // addToCart(cartItemes[0]);
     // addToCart(cartItemes[1]);
+    // token = getToken()
+    console.log(token);
   }, []);
-
-  const cartItemes = [
-    {
-      id: 0,
-      title: "Apple iPhone 14 Pro",
-      price: 1999.0,
-      quantity: 1,
-      img: CartItem,
-    },
-    {
-      id: 1,
-      title: "Asus ROG Delta S",
-      price: 250.0,
-      quantity: 1,
-      img: CartItem,
-    },
-  ];
+  const handleCart = async () => {
+    try {
+      const response = await PostCart(cartItems);
+      if (response.status === 200) {
+        toast.success("done!");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+  // const cartItemes = [
+  //   {
+  //     id: 0,
+  //     title: "Apple iPhone 14 Pro",
+  //     price: 1999.0,
+  //     quantity: 1,
+  //     img: CartItem,
+  //   },
+  //   {
+  //     id: 1,
+  //     title: "Asus ROG Delta S",
+  //     price: 250.0,
+  //     quantity: 1,
+  //     img: CartItem,
+  //   },
+  // ];
   const url = usePathname();
 
   const menuItems = [
@@ -109,7 +129,10 @@ const PublicLayout = ({ children }) => {
               url === "/" || url === "/home-page" ? "bg-grey" : "bg-white"
             } pt-5 h-auto`}
           >
-            <Row justify="space-between md:px-10 px-5 mb-5 items-center" align="cenetr">
+            <Row
+              justify="space-between md:px-10 px-5 mb-5 items-center"
+              align="cenetr"
+            >
               <Col span={6}>
                 <Image
                   className="color-primary-1000"
@@ -143,6 +166,11 @@ const PublicLayout = ({ children }) => {
                   icon={<CiHeart size={24} />}
                 />
                 <Button
+                  // disabled={true}
+                  disabled={
+                    typeof window !== "undefined" &&
+                    sessionStorage.getItem("token") == undefined
+                  }
                   onClick={() => setVisible(true)}
                   className="border-none rounded-2xl"
                   icon={
@@ -155,9 +183,14 @@ const PublicLayout = ({ children }) => {
                     </Badge>
                   }
                 />
-                <Button type="primary" onClick={() => setPopUp("login")}>
-                  Login
-                </Button>
+                {typeof window !== "undefined" &&
+                sessionStorage.getItem("token") == undefined ? (
+                  <Button type="primary" onClick={() => setPopUp("login")}>
+                    Login
+                  </Button>
+                ) : (
+                  <Button>user</Button>
+                )}
                 <Modal
                   open={popup === "login" ? true : false}
                   onCancel={() => setPopUp(null)}
@@ -192,7 +225,7 @@ const PublicLayout = ({ children }) => {
               <Col span={8}>
                 <Cascader className="bg-grey" placeholder="All Categories" />
               </Col>
-              <Col xs={8}  md={16}>
+              <Col xs={8} md={16}>
                 <Menu
                   onClick={(e) => setCurrentPage(e.key)}
                   selectedKeys={[currentPage]}
@@ -214,7 +247,9 @@ const PublicLayout = ({ children }) => {
                 <Image priority={true} src={FooterLogo} alt="logo" />
                 <Flex className="flex flex-row justify-start items-center gap-2">
                   <CiPhone size={20} color="white" />
-                  <Typography className="text-white text-[10px] md:text-sm">(316) 555-0116</Typography>
+                  <Typography className="text-white text-[10px] md:text-sm">
+                    (316) 555-0116
+                  </Typography>
                 </Flex>
                 <Flex className="flex flex-row justify-start items-center gap-2">
                   <CiMail size={20} color="white" />
@@ -233,22 +268,38 @@ const PublicLayout = ({ children }) => {
                 <Typography className="font-bold text-white text-[10px] md:text-sm">
                   Information
                 </Typography>
-                <Typography className="text-white text-[10px] md:text-sm">My Account</Typography>
-                <Typography className="text-white text-[10px] md:text-sm">Login</Typography>
-                <Typography className="text-white text-[10px] md:text-sm">My Cart</Typography>
-                <Typography className="text-white text-[10px] md:text-sm">My Wishlist</Typography>
-                <Typography className="text-white text-[10px] md:text-sm">Checkout</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  My Account
+                </Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  Login
+                </Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  My Cart
+                </Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  My Wishlist
+                </Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  Checkout
+                </Typography>
               </Col>
               <Col className="py-2 gutter-row space-y-3" span={6}>
                 <Typography className="font-bold text-white text-[10px] md:text-sm">
                   Service
                 </Typography>
-                <Typography className="text-white text-[10px] md:text-sm">About Us</Typography>
-                <Typography className="text-white text-[10px] md:text-sm">Careers</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  About Us
+                </Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  Careers
+                </Typography>
                 <Typography className="text-white text-[10px] md:text-sm">
                   Delivery Information
                 </Typography>
-                <Typography className="text-white text-[10px] md:text-sm">Privacy Policy</Typography>
+                <Typography className="text-white text-[10px] md:text-sm">
+                  Privacy Policy
+                </Typography>
                 <Typography className="text-white text-[10px] md:text-sm">
                   Terms & Conditions
                 </Typography>
@@ -353,19 +404,16 @@ const PublicLayout = ({ children }) => {
                   Sub Total
                 </Typography>
                 <Typography className="font-black text-base	">
-                  $
-                  {(() => {
-                    let sum = 0;
-                    cartItems.map((item) => {
-                      sum += item.price;
-                    });
-                    return sum;
-                  })()}
+                  ${totalCost}
                 </Typography>
               </Flex>
               <Button className="w-full h-12">View Cart</Button>
 
-              <Button className="w-full h-12" type="primary">
+              <Button
+                className="w-full h-12"
+                type="primary"
+                onClick={handleCart}
+              >
                 Checkout
               </Button>
             </Flex>
